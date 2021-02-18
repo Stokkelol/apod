@@ -1,12 +1,18 @@
 package main
 
 import (
-	"github.com/stokkelol/apod/cmd"
+	"github.com/stokkelol/apod/pkg/runner"
 	"log"
+	"os"
+	"strconv"
 )
 
 func main() {
-	if err := cmd.Execute(); err != nil {
-		log.Fatalf("error while running APOD command: %s", err.Error())
+	nasaKey := os.Getenv("NASA_API_KEY")
+	teleKey := os.Getenv("TELEGRAM_API_KEY")
+	channelId, _ := strconv.Atoi(os.Getenv("TELEGRAM_CHANNEL_ID"))
+
+	if err := runner.Run(nasaKey, teleKey, int64(channelId)); err != nil {
+		log.Fatal(err.Error())
 	}
 }

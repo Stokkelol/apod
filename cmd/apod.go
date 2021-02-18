@@ -1,9 +1,8 @@
-package cmd
+package main
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/stokkelol/apod/pkg/nasa"
-	"github.com/stokkelol/apod/pkg/telegram"
+	"github.com/stokkelol/apod/pkg/runner"
 	"log"
 	"os"
 	"strconv"
@@ -18,20 +17,14 @@ var root = &cobra.Command{
 		teleKey := os.Getenv("TELEGRAM_API_KEY")
 		channelId, _ := strconv.Atoi(os.Getenv("TELEGRAM_CHANNEL_ID"))
 
-		image, err := nasa.PullImage(nasaKey)
-		if err != nil {
-			log.Fatal(err.Error())
-		}
-		bot, err := telegram.NewApi(teleKey, int64(channelId))
-		if err != nil {
-			log.Fatal(err.Error())
-		}
-		if err := bot.SendMessage(image); err != nil {
+		if err := runner.Run(nasaKey, teleKey, int64(channelId)); err != nil {
 			log.Fatal(err.Error())
 		}
 	},
 }
 
-func Execute() error {
-	return root.Execute()
+func main() {
+	if err := root.Execute(); err != nil {
+		log.Fatal(err.Error())
+	}
 }
