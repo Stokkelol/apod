@@ -1,11 +1,12 @@
 package main
 
 import (
-	"github.com/spf13/cobra"
-	"github.com/stokkelol/apod/pkg/runner"
 	"log"
 	"os"
 	"strconv"
+
+	"github.com/spf13/cobra"
+	"github.com/stokkelol/apod/pkg/runner"
 )
 
 var root = &cobra.Command{

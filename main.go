@@ -1,10 +1,12 @@
 package main
 
 import (
-	"github.com/stokkelol/apod/pkg/runner"
 	"log"
 	"os"
 	"strconv"
+
+	_ "github.com/joho/godotenv/autoload"
+	"github.com/stokkelol/apod/pkg/runner"
 )
 
 func main() {
